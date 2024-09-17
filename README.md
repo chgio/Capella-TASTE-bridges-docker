@@ -15,3 +15,9 @@ $ docker pull chgio/python4capella-docker
 ```sh
 $ docker run -it python4capella-docker:latest sh
 ```
+
+## Testing
+
+```sh
+# cd /tmp/workspace ; ./run-sample.sh
+```
