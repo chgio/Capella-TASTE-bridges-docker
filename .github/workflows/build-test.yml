@@ -1,10 +1,8 @@
 name: Build & Test Docker Image
 
 on:
-  # runs autonomously upon regular push
+  # runs autonomously upon push
   push:
-    tags-ignore:
-      - 'v*'
   # can be invoked by publish job
   workflow_call:
   # can be triggered manually
