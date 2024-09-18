@@ -27,7 +27,7 @@ ENV PATH="/opt/capella-${CAPELLA_VER}/capella/:${PATH}"
 # Install Py4J
 # - Py4J Library
 ENV PY4J_REPOSITORY=https://eclipse.py4j.org/
-RUN capella -nosplash -consolelog \
+RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository ${PY4J_REPOSITORY} -installIU \
     org.py4j.feature.feature.group
@@ -39,7 +39,7 @@ RUN capella -nosplash -consolelog \
 # - EASE Modules (Incubation):              EASE basic modules to interact with Eclipse Workbench.
 # - EASE UI Components (Incubation):        All the EASE component for User Interface integration.
 ENV EASE_REPOSITORY=http://download.eclipse.org/ease/release/latest/
-RUN capella -nosplash -consolelog \
+RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository ${EASE_REPOSITORY} -installIU \
     org.eclipse.ease.feature.feature.group,org.eclipse.ease.lang.python.py4j.feature.feature.group,org.eclipse.ease.lang.python.feature.feature.group,org.eclipse.ease.modules.feature.feature.group,org.eclipse.ease.ui.feature.feature.group
@@ -47,8 +47,8 @@ RUN capella -nosplash -consolelog \
 # Install Python4Capella
 # - Python4Capella:                         Python Scripting for Capella.
 # - Python4Capella Command Line Interface:  Python Scripting for Capella Command Line Interface.
-ENV PY4C_REPOSITORY=jar:https://github.com/labs4capella/python4capella/releases/download/1.3.0/org.eclipse.python4capella.update.zip!/
-RUN capella -nosplash -consolelog \
+ENV PY4C_REPOSITORY=jar:https://github.com/labs4capella/python4capella/releases/download/1.3.0/org.eclipse.python4capella.update.zip!
+RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository ${PY4C_REPOSITORY} -installIU \
     org.eclipse.python4capella.feature.feature.group,org.eclipse.python4capella.commandline.feature.feature.group
