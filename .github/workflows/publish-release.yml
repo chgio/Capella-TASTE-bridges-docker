@@ -1,10 +1,10 @@
 name: Publish Docker Image & Create Release
 
 on:
-  # runs autonomously upon pushing any tag
+  # runs autonomously upon version tag push
   push:
     tags:
-      - '*'
+      - 'v*'
 
 jobs:
   # list build-test job for reuse
