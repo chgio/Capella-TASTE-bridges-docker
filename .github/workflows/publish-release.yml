@@ -22,21 +22,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # download Docker imgspec tarball from build-test job
-      - name: Download image as artifact
+      # download Docker build cache from build-test job
+      - name: Download cache as artifact
         uses: actions/download-artifact@v4
         with:
-          name: Docker Image (TAR)
+          name: Docker Cache
           path: /tmp
-      # load Docker imgspec tarball
-      - name: Load image
-        run: docker load --input /tmp/python4capella-docker-image.tar
-      # tag latest image with version number
-      - name: Tag image
-        run: docker tag chgio/python4capella-docker:latest chgio/python4capella-docker:${{ github.ref_name }}
-      # push image with all tags
-      - name: Push image
-        run: docker push --all-tags chgio/python4capella-docker
+      # publish image from cache
+      - name: Publish image
+        uses: docker/build-push-action@v6
+        with:
+          tags: chgio/python4capella-docker:latest,chgio/python4capella-docker:${{ github.ref_name }}
+          cache-from: type=local,src=/tmp/docker-cache
+          push: true
 
   release:
     # invoke build-test job
