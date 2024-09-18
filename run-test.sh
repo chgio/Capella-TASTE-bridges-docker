@@ -1,5 +1,5 @@
 #!/bin/sh
-/tmp/workspace/run-sample > /tmp/workspace/out.txt
+/tmp/workspace/run-sample.sh > /tmp/workspace/out.txt
 
 grep "In-Flight Entertainment System
  - IFE System
