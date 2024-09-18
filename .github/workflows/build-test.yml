@@ -1,0 +1,38 @@
+name: Build & Test Docker Image
+
+on:
+  # can be invoked by publish job
+  workflow_call:
+  # runs autonomously upon regular push
+  push:
+    tags: none
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      # set up build tools
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      # build image and Docker imgspec tarball
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          tags: chgio/python4capella-docker:latest
+          outputs: |
+            type=image
+            type=docker,dest=/tmp/python4capella-docker-image.tar
+      # run image test script in container, relaying exit code
+      # (test fails => step fails => job fails)
+      - name: Test image
+        run: |
+          docker run -it --name testcontainer chgio/python4capella-docker:latest /tmp/workspace/run-test.sh
+          docker inspect testcontainer --format='{{.State.ExitCode}}'
+          exit $?
+      # upload Docker imgspec tarball for publish job
+      - name: Upload image as artifact
+        if: ${{ github.ref_type == 'tag' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Docker Image
+          path: /tmp/python4capella-docker-image.tar
