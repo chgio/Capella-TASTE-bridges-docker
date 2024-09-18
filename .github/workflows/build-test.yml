@@ -4,7 +4,7 @@ on:
   # runs autonomously upon regular push
   push:
     tags-ignore:
-      - '*'
+      - 'v*'
   # can be invoked by publish job
   workflow_call:
   # can be triggered manually
