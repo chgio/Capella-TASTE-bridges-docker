@@ -5,7 +5,8 @@ on:
   workflow_call:
   # runs autonomously upon regular push
   push:
-    tags: none
+    tags-ignore:
+      - '*'
 
 jobs:
   build-test:
