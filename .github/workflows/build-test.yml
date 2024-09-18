@@ -23,7 +23,6 @@ jobs:
         with:
           tags: chgio/python4capella-docker:latest
           load: true
-          outputs: type=docker,dest=/tmp/python4capella-docker-image.tar
       # run image test script in container, relaying exit code
       # (test fails => step fails => job fails)
       - name: Test image
