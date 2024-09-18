@@ -17,24 +17,24 @@ jobs:
       # set up build tools
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      # build image and Docker imgspec tarball
+      # build image with local caching
       - name: Build image
         uses: docker/build-push-action@v6
         with:
           tags: chgio/python4capella-docker:latest
           load: true
+          cache-to: type=local, /tmp/docker-cache
       # run image test script in container, relaying exit code
       # (test fails => step fails => job fails)
       - name: Test image
         run: |
-          docker image ls
           docker run --name testcontainer chgio/python4capella-docker:latest /tmp/workspace/run-test.sh
           docker inspect testcontainer --format='{{.State.ExitCode}}'
           exit $?
-      # upload Docker imgspec tarball for publish job
-      - name: Upload image as artifact
+      # upload Docker build cache for publish job
+      - name: Upload cache as artifact
         if: ${{ github.ref_type == 'tag' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Docker Image
-          path: /tmp/python4capella-docker-image.tar
+          name: Docker Cache
+          path: /tmp/docker-cache
