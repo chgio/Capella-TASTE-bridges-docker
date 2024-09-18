@@ -57,4 +57,4 @@ RUN mkdir -p /tmp/python4capella && \
     unzip /tmp/python4capella/zips/Python4Capella.zip -d /opt/capella-${CAPELLA_VER}/Python4Capella
 
 RUN mkdir -p /tmp/workspace
-COPY run-sample.sh /tmp/workspace
+COPY run-sample.sh run-test.sh /tmp/workspace/

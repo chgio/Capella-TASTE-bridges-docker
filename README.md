@@ -18,6 +18,8 @@ $ docker run -it python4capella-docker:latest sh
 
 ## Testing
 
+Run a sample Python4Capella script on a sample Capella model with:
+
 ```sh
-# cd /tmp/workspace ; ./run-sample.sh
+$ cd /tmp/workspace ; ./run-sample.sh
 ```

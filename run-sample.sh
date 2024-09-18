@@ -1,11 +1,12 @@
+#!/bin/sh
 echo "CAPELLA_VER=${CAPELLA_VER}"
 
 cd /opt/capella-${CAPELLA_VER}/samples && \
-    unzip IFE_samplemodel.zip && \
+    unzip -qq IFE_samplemodel.zip && \
     rm IFE_samplemodel.zip
 
 xvfb-run -s "-screen 0 1280x720x24" \
-capella -nosplash -consolelog \
+capella -nosplash \
 -application org.polarsys.capella.core.commandline.core \
 -appid org.eclipse.python4capella.commandline \
 -data /tmp/workspace \
