@@ -28,9 +28,6 @@ jobs:
         with:
           name: Docker Cache
           path: /tmp/docker-cache
-      # debug
-      - name: Check download
-        run: tree /tmp
       # publish image from cache
       - name: Publish image
         uses: docker/build-push-action@v6
