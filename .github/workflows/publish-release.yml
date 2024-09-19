@@ -27,7 +27,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Docker Cache
-          path: /tmp
+          path: /tmp/docker-cache
       # debug
       - name: Check download
         run: tree /tmp
