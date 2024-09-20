@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     python3 python3-dbg python3-pip
 RUN ln -s /usr/bin/python3 /usr/local/bin/python
 
-# install capella
+# install capella 7.0.0
 ENV CAPELLA_VER=7.0.0
 ENV CAPELLA_TAR=https://download.eclipse.org/capella/core/products/releases/7.0.0/capella-7.0.0.202407091438-linux-gtk-x86_64.tar.gz
 RUN mkdir -p /opt/capella-${CAPELLA_VER} && \
@@ -25,7 +25,7 @@ RUN mkdir -p /opt/capella-${CAPELLA_VER}/workspace
 # -> insert & select update site -> disable "group items by category"
 # -> click "more" -> Select "General Information"
 
-# Install Py4J
+# Install Py4J latest
 # - Py4J Library
 ENV PY4J_REPOSITORY=https://eclipse.py4j.org/
 RUN capella -nosplash \
@@ -33,21 +33,21 @@ RUN capella -nosplash \
     -repository ${PY4J_REPOSITORY} -installIU \
     org.py4j.feature.feature.group
 
-# Install EASE
-# - EASE Core Framework (Incubation):       All the core components mandatory for EASE.
-# - EASE Py4J Support (Incubation):         Python (using Py4J) integration into EASE as Python Engine. Needs an external python interpreter for script execution.
-# - EASE Python Support (Incubation):       EASE component used to handle python language. This feature does not contain any Python Engine.
-# - EASE Modules (Incubation):              EASE basic modules to interact with Eclipse Workbench.
-# - EASE UI Components (Incubation):        All the EASE component for User Interface integration.
+# Install EASE latest
+# - EASE Core Framework (Incubation):           All the core components mandatory for EASE.
+# - EASE Py4J Support (Incubation):             Python (using Py4J) integration into EASE as Python Engine. Needs an external python interpreter for script execution.
+# - EASE Python Support (Incubation):           EASE component used to handle python language. This feature does not contain any Python Engine.
+# - EASE Modules (Incubation):                  EASE basic modules to interact with Eclipse Workbench.
+# - EASE UI Components (Incubation):            All the EASE component for User Interface integration.
 ENV EASE_REPOSITORY=http://download.eclipse.org/ease/release/latest/
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository ${EASE_REPOSITORY} -installIU \
     org.eclipse.ease.feature.feature.group,org.eclipse.ease.lang.python.py4j.feature.feature.group,org.eclipse.ease.lang.python.feature.feature.group,org.eclipse.ease.modules.feature.feature.group,org.eclipse.ease.ui.feature.feature.group
 
-# Install Python4Capella
-# - Python4Capella:                         Python Scripting for Capella.
-# - Python4Capella Command Line Interface:  Python Scripting for Capella Command Line Interface.
+# Install Python4Capella 1.3.0
+# - Python4Capella:                             Python Scripting for Capella.
+# - Python4Capella Command Line Interface:      Python Scripting for Capella Command Line Interface.
 ENV PY4C_REPOSITORY=jar:https://github.com/labs4capella/python4capella/releases/download/1.3.0/org.eclipse.python4capella.update.zip!
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
@@ -56,6 +56,19 @@ RUN capella -nosplash \
 RUN mkdir -p /tmp/python4capella && \
     unzip /opt/capella-${CAPELLA_VER}/capella/plugins/org.eclipse.python4capella_1.3.0.202408221204.jar -d /tmp/python4capella && \
     unzip /tmp/python4capella/zips/Python4Capella.zip -d /opt/capella-${CAPELLA_VER}/Python4Capella
+
+# Install Requirements-VP 0.14.0
+# - CapellaRequirements Feature
+# - CapellaRequirements Representation Feature
+# - CapellaRequirements Viewpoint Feature
+# - Requirements Feature
+# - Requirements Representation Feature
+# - Requirements Representation Feature
+ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/0.14.0/Requirements-updateSite-0.14.0.202407170938.zip&r=1!
+RUN capella -nosplash \
+    -application org.eclipse.equinox.p2.director \
+    -repository ${REQVP_REPOSITORY} -installIU \
+    org.polarsys.capella.vp.requirements.feature.feature.group,org.polarsys.capella.vp.requirements.representation.feature.feature.group,org.polarsys.capella.vp.requirements.af.feature.feature.group,org.polarsys.kitalpha.vp.requirements.feature.feature.group,org.polarsys.kitalpha.vp.requirements.af.feature.feature.group,org.polarsys.kitalpha.vp.requirements.representation.feature.feature.group
 
 # Unpack sample scripts and model
 RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
