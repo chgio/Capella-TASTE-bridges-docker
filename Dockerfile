@@ -64,7 +64,7 @@ RUN mkdir -p /tmp/python4capella && \
 # - Requirements Feature
 # - Requirements Representation Feature
 # - Requirements Representation Feature
-ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/0.14.0/Requirements-updateSite-0.14.0.202407170938.zip&r=1!
+ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/0.14.0/Requirements-updateSite-0.14.0.202407170938.zip&mirror_id=1!
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository ${REQVP_REPOSITORY} -installIU \
