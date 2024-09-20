@@ -12,14 +12,8 @@ $ docker pull chgio/python4capella-docker:latest
 
 ## Usage
 
-```sh
-$ docker run -it python4capella-docker:latest sh
-```
-
-## Testing
-
 Run a sample Python4Capella script on a sample Capella model with:
 
 ```sh
-$ /workspace/sample/scripts/run-sample.sh
+$ docker run -it chgio/python4capella-docker:latest sample/scripts/Python4Capella-Scripts/List_logical_components_in_console.py sample/models/In-Flight\ Entertainment\ System/In-Flight\ Entertainment\ System.aird
 ```

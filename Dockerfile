@@ -19,6 +19,7 @@ RUN mkdir -p /opt/capella-${CAPELLA_VER} && \
     tar -xzf capella.tar.gz && \
     rm capella.tar.gz
 ENV PATH="/opt/capella-${CAPELLA_VER}/capella/:${PATH}"
+RUN mkdir -p /opt/capella-${CAPELLA_VER}/workspace
 
 # To get install item identifiers from below: Eclipse -> install software
 # -> insert & select update site -> disable "group items by category"
@@ -58,10 +59,15 @@ RUN mkdir -p /tmp/python4capella && \
 
 # Unpack sample scripts and model
 RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
-RUN cp -r /opt/capella-${CAPELLA_VER}/Python4Capella/sample_scripts /workspace/sample/scripts
+RUN mkdir -p /workspace/sample/scripts/Python4Capella-Scripts && \
+    mv /opt/capella-${CAPELLA_VER}/Python4Capella/sample_scripts/* /workspace/sample/scripts/Python4Capella-Scripts && \
+    cp /opt/capella-${CAPELLA_VER}/Python4Capella/.project /workspace/sample/scripts/Python4Capella-Scripts/.project && \
+    sed -i -e 's/Python4Capella/Python4Capella-Scripts/g' /workspace/sample/scripts/Python4Capella-Scripts/.project
 RUN cd /opt/capella-${CAPELLA_VER}/samples && \
     unzip IFE_samplemodel.zip -d /workspace/sample/models && \
     rm IFE_samplemodel.zip
 
-COPY run-sample.sh run-test.sh /workspace/sample/scripts/
-WORKDIR /workspace
+COPY run-test.sh /workspace/sample/scripts/
+COPY utils/find-up.sh /usr/bin/find-up
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
