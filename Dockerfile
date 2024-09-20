@@ -62,11 +62,13 @@ RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
 RUN mkdir -p /workspace/sample/scripts/Python4Capella-Scripts && \
     mv /opt/capella-${CAPELLA_VER}/Python4Capella/sample_scripts/* /workspace/sample/scripts/Python4Capella-Scripts && \
     cp /opt/capella-${CAPELLA_VER}/Python4Capella/.project /workspace/sample/scripts/Python4Capella-Scripts/.project && \
-    sed -i -e 's/Python4Capella/Python4Capella-Scripts/g' /workspace/sample/scripts/Python4Capella-Scripts/.project
+    sed -i -e 's/Python4Capella/Python4Capella-Scripts/g' /workspace/sample/scripts/Python4Capella-Scripts/.project && \
+    perl -0777 -i -pe 's/\x27\x27\x27\n#Here is the "Run Configuration" part to uncomment if you want to use this functionality :\n\n(.*)\x27\x27\x27/$1/s' /workspace/sample/scripts/Python4Capella-Scripts/*.py
 RUN cd /opt/capella-${CAPELLA_VER}/samples && \
     unzip IFE_samplemodel.zip -d /workspace/sample/models && \
     rm IFE_samplemodel.zip
 
 COPY utils/find-up.sh /usr/bin/find-up
 COPY entrypoint.sh /entrypoint.sh
+VOLUME [ "/workspace/user/scripts", "/workspace/user/models" ]
 ENTRYPOINT [ "/entrypoint.sh" ]
