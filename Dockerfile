@@ -67,7 +67,6 @@ RUN cd /opt/capella-${CAPELLA_VER}/samples && \
     unzip IFE_samplemodel.zip -d /workspace/sample/models && \
     rm IFE_samplemodel.zip
 
-COPY run-test.sh /workspace/sample/scripts/
 COPY utils/find-up.sh /usr/bin/find-up
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
