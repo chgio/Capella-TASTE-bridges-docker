@@ -56,5 +56,12 @@ RUN mkdir -p /tmp/python4capella && \
     unzip /opt/capella-${CAPELLA_VER}/capella/plugins/org.eclipse.python4capella_1.3.0.202408221204.jar -d /tmp/python4capella && \
     unzip /tmp/python4capella/zips/Python4Capella.zip -d /opt/capella-${CAPELLA_VER}/Python4Capella
 
-RUN mkdir -p /tmp/workspace
-COPY run-sample.sh run-test.sh /tmp/workspace/
+# Unpack sample scripts and model
+RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
+RUN cp -r /opt/capella-${CAPELLA_VER}/Python4Capella/sample_scripts /workspace/sample/scripts
+RUN cd /opt/capella-${CAPELLA_VER}/samples && \
+    unzip IFE_samplemodel.zip -d /workspace/sample/models && \
+    rm IFE_samplemodel.zip
+
+COPY run-sample.sh run-test.sh /workspace/sample/scripts/
+WORKDIR /workspace

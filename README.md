@@ -7,7 +7,7 @@ Patchwork of [materpillar/Capella-HTML-exporter](https://github.com/materpillar/
 ## Installation
 
 ```sh
-$ docker pull chgio/python4capella-docker
+$ docker pull chgio/python4capella-docker:latest
 ```
 
 ## Usage
@@ -21,5 +21,5 @@ $ docker run -it python4capella-docker:latest sh
 Run a sample Python4Capella script on a sample Capella model with:
 
 ```sh
-$ cd /tmp/workspace ; ./run-sample.sh
+$ /workspace/sample/scripts/run-sample.sh
 ```
