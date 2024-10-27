@@ -11,6 +11,6 @@ xvfb-run -s "-screen 0 1280x720x24" \
 capella -nosplash -consolelog \
 -application org.polarsys.capella.core.commandline.core \
 -appid org.eclipse.python4capella.commandline \
--data /opt/capella-${CAPELLA_VER}/workspace \
--import "/opt/capella-${CAPELLA_VER}/Python4Capella|${SCRIPT_PRJ_DIR_ABS}|${MODEL_PRJ_DIR_ABS}" \
+-data /opt/capella/workspace \
+-import "/opt/capella/Python4Capella|${SCRIPT_PRJ_DIR_ABS}|${MODEL_PRJ_DIR_ABS}" \
 "${SCRIPT_PATH_ABS}" "/${MODEL_PATH_REL_PRJ}" ${EXTRA_ARGS}
