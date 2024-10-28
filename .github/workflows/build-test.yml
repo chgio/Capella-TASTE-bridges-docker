@@ -31,8 +31,8 @@ jobs:
       - name: Test image
         run: |
           docker run \
-            chgio/python4capella-docker:latest \
             --name test_container \
+            chgio/python4capella-docker:latest \
             sample/scripts/Python4Capella-Scripts/List_logical_components_in_console.py \
             sample/models/In-Flight\ Entertainment\ System/In-Flight\ Entertainment\ System.aird \
             > /tmp/out.txt
