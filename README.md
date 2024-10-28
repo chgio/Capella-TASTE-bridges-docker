@@ -1,6 +1,8 @@
 # python4capella-docker
 
-Docker image to run [Python4Capella](https://github.com/ylussaud/python4capella) scripts on [Capella](https://github.com/eclipse-capella/capella) models, for continuous integration or containerised testing.
+![Docker Pulls](https://img.shields.io/docker/pulls/chgio/python4capella-docker) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/chgio/python4capella-docker/build-test.yml)
+
+Docker image to run [Python4Capella](https://github.com/labs4capella/python4capella) scripts on [Capella](https://github.com/eclipse-capella/capella) models, for continuous integration or containerised testing.
 
 ## Installation
 
@@ -30,7 +32,8 @@ $ docker run \
   -v <path to Capella project>:/workspace/user/models/<name of Capella project> \
   chgio/python4capella-docker:latest \
   /user/scripts/<name of Python4Capella project>/<path to Python4Capella script>.py \
-  /user/models/<name of Python4Capella project>/<path to Capella model>.aird
+  /user/models/<name of Python4Capella project>/<path to Capella model>.aird \
+  <extra script args>
 ```
 
 where:
@@ -43,6 +46,7 @@ where:
 | `<name of Capella project>`        | the name of your Capella project, matching the one between `<name>` tags in its `.project` file        |
 | `<path to Python4Capella script>`  | path to the `.py` script to run, relative to `<path to Python4Capella project>`                        |
 | `<path to Capella model>`          | path to the `.aird` model to run the script on, relative to `<path to Capella project>`                |
+| `<extra script args>`              | space-separated list of any additional arguments to feed to the Python4Capella script                  |
 
 ## Acknowledgements
 
