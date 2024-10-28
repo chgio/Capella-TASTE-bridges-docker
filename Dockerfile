@@ -24,6 +24,10 @@ RUN mkdir -p /opt/capella && \
 ENV PATH="/opt/capella/capella/:${PATH}"
 RUN mkdir -p /opt/capella/workspace
 
+# configure logging level filter
+RUN mkdir /opt/capella/configuration && \
+    echo "<configuration><appender-ref ref='STDOUT'/><root level='INFO'></root></configuration>" > /opt/capella/configuration/logback.xml
+
 # Eclipse Docs: installing software using the p2 director application
 # https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fp2_director.html
 
@@ -35,7 +39,8 @@ ENV PY4J_REPOSITORY=https://eclipse.py4j.org
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "https://eclipse.py4j.org" -installIU \
-    org.py4j.feature.feature.group/${PY4J_VER_LONG}
+    org.py4j.feature.feature.group/${PY4J_VER_LONG} \
+    -vmargs -Dlogback.configurationFile=/opt/capella/configuration/logback.xml
 
 # Install EASE
 # - EASE Core Framework (Incubation):           All the core components mandatory for EASE.
@@ -51,7 +56,8 @@ ENV EASE_REPOSITORY=https://download.eclipse.org/ease/release/${EASE_VER_SHORT}
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "https://download.eclipse.org/ease/release/${EASE_CORE_VER_LONG%.I[0-9]*}" -installIU \
-    org.eclipse.ease.feature.feature.group/${EASE_CORE_VER_LONG},org.eclipse.ease.lang.python.py4j.feature.feature.group/${EASE_PY4J_VER_LONG},org.eclipse.ease.lang.python.feature.feature.group/${EASE_PYTHON_VER_LONG},org.eclipse.ease.modules.feature.feature.group/${EASE_MOD_VER_LONG}
+    org.eclipse.ease.feature.feature.group/${EASE_CORE_VER_LONG},org.eclipse.ease.lang.python.py4j.feature.feature.group/${EASE_PY4J_VER_LONG},org.eclipse.ease.lang.python.feature.feature.group/${EASE_PYTHON_VER_LONG},org.eclipse.ease.modules.feature.feature.group/${EASE_MOD_VER_LONG} \
+    -vmargs -Dlogback.configurationFile=/opt/capella/configuration/logback.xml
 
 # Install Python4Capella
 # - Python4Capella:                             Python Scripting for Capella.
@@ -62,7 +68,8 @@ ENV PY4C_REPOSITORY=jar:https://github.com/labs4capella/python4capella/releases/
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "jar:https://github.com/labs4capella/python4capella/releases/download/${PY4C_VER_LONG%.[0-9]*}/org.eclipse.python4capella.update.zip!" -installIU \
-    org.eclipse.python4capella.feature.feature.group/${PY4C_VER_LONG},org.eclipse.python4capella.commandline.feature.feature.group/${PY4C_VER_LONG}
+    org.eclipse.python4capella.feature.feature.group/${PY4C_VER_LONG},org.eclipse.python4capella.commandline.feature.feature.group/${PY4C_VER_LONG} \
+    -vmargs -Dlogback.configurationFile=/opt/capella/configuration/logback.xml
 RUN mkdir -p /tmp/python4capella && \
     unzip /opt/capella/capella/plugins/org.eclipse.python4capella_${PY4C_VER_LONG}.jar -d /tmp/python4capella && \
     unzip /tmp/python4capella/zips/Python4Capella.zip -d /opt/capella/Python4Capella
@@ -75,7 +82,8 @@ ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/ca
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_LONG%.[0-9]*}/Requirements-updateSite-${REQVP_VER_LONG}.zip&mirror_id=1!" -installIU \
-    org.polarsys.capella.vp.requirements.feature.feature.group/${REQVP_VER_LONG}
+    org.polarsys.capella.vp.requirements.feature.feature.group/${REQVP_VER_LONG} \
+    -vmargs -Dlogback.configurationFile=/opt/capella/configuration/logback.xml
 
 # Unpack sample scripts and model
 RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
