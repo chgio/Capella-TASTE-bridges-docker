@@ -71,6 +71,11 @@ jobs:
           REQVP_VER_LONG=$(grep REQVP_VER_LONG /tmp/docker-env-vars.txt)
           REQVP_VER_SHORT=${REQVP_VER_LONG%.[0-9]*}
           echo "reqvp_ver=${REQVP_VER_SHORT}" >> ${GITHUB_ENV}
+      # check out repository
+      - name: Check out repository
+        uses: checkout@v4
+        with:
+          sparse-checkout: .github
       # create release
       - name: Create release
         run: |
