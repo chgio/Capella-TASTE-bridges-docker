@@ -71,18 +71,13 @@ RUN mkdir -p /tmp/python4capella && \
 
 # Install Requirements-VP
 # - CapellaRequirements Feature
-# - CapellaRequirements Representation Feature
-# - CapellaRequirements Viewpoint Feature
-# - Requirements Feature
-# - Requirements Representation Feature
-# - Requirements Representation Feature
 ENV REQVP_VER_LONG=0.14.0.202407170938
 ENV REQVP_VER_SHORT=${REQVP_VER_LONG%.[0-9]*}
 ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_SHORT}/Requirements-updateSite-${REQVP_VER_LONG}.zip&r=1!
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_LONG%.[0-9]*}/Requirements-updateSite-${REQVP_VER_LONG}.zip&r=1!" -installIU \
-    org.polarsys.capella.vp.requirements.feature.feature.group/${REQVP_VER_LONG},org.polarsys.capella.vp.requirements.representation.feature.feature.group/${REQVP_VER_LONG},org.polarsys.capella.vp.requirements.af.feature.feature.group/${REQVP_VER_LONG},org.polarsys.kitalpha.vp.requirements.feature.feature.group/${REQVP_VER_LONG},org.polarsys.kitalpha.vp.requirements.af.feature.feature.group/${REQVP_VER_LONG},org.polarsys.kitalpha.vp.requirements.representation.feature.feature.group/${REQVP_VER_LONG}
+    org.polarsys.capella.vp.requirements.feature.feature.group/${REQVP_VER_LONG}
 
 # Unpack sample scripts and model
 RUN mkdir -p /workspace/sample/scripts /workspace/sample/models
