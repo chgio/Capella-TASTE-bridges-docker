@@ -1,6 +1,6 @@
 Get it from [DockerHub](https://hub.docker.com/r/chgio/python4capella-docker/tags):
 
-```bash
+```sh
 docker pull chgio/python4capella-docker:${{ env.version_nov }}
 ```
 
