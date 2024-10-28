@@ -43,7 +43,9 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    # dockervoke build-test job
+    env:
+      GH_TOKEN: ${{ github.token }}
+    # invoke build-test job
     needs: build-test
     steps:
       # download and unpack Docker image dependency versions from build-test job
