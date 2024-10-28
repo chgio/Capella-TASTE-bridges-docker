@@ -73,7 +73,7 @@ jobs:
           echo "reqvp_ver=${REQVP_VER_SHORT}" >> ${GITHUB_ENV}
       # check out repository
       - name: Check out repository
-        uses: checkout@v4
+        uses: actions/checkout@v4
       # create release
       - name: Create release
         run: |
