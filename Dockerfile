@@ -42,18 +42,16 @@ RUN capella -nosplash \
 # - EASE Py4J Support (Incubation):             Python (using Py4J) integration into EASE as Python Engine. Needs an external python interpreter for script execution.
 # - EASE Python Support (Incubation):           EASE component used to handle python language. This feature does not contain any Python Engine.
 # - EASE Modules (Incubation):                  EASE basic modules to interact with Eclipse Workbench.
-# - EASE UI Components (Incubation):            All the EASE component for User Interface integration.
 ENV EASE_CORE_VER_LONG=0.9.0.I202206140954
 ENV EASE_PY4J_VER_LONG=0.9.0.I202206141122
 ENV EASE_PYTHON_VER_LONG=0.9.0.I202204261218
 ENV EASE_MOD_VER_LONG=0.9.0.I202207260950
-ENV EASE_UI_VER_LONG=0.9.0.I202207260937
 ENV EASE_VER_SHORT=${EASE_CORE_VER_LONG%.I[0-9]*}
 ENV EASE_REPOSITORY=https://download.eclipse.org/ease/release/${EASE_VER_SHORT}
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
     -repository "https://download.eclipse.org/ease/release/${EASE_CORE_VER_LONG%.I[0-9]*}" -installIU \
-    org.eclipse.ease.feature.feature.group/${EASE_CORE_VER_LONG},org.eclipse.ease.lang.python.py4j.feature.feature.group/${EASE_PY4J_VER_LONG},org.eclipse.ease.lang.python.feature.feature.group/${EASE_PYTHON_VER_LONG},org.eclipse.ease.modules.feature.feature.group/${EASE_MOD_VER_LONG},org.eclipse.ease.ui.feature.feature.group/${EASE_UI_VER_LONG}
+    org.eclipse.ease.feature.feature.group/${EASE_CORE_VER_LONG},org.eclipse.ease.lang.python.py4j.feature.feature.group/${EASE_PY4J_VER_LONG},org.eclipse.ease.lang.python.feature.feature.group/${EASE_PYTHON_VER_LONG},org.eclipse.ease.modules.feature.feature.group/${EASE_MOD_VER_LONG}
 
 # Install Python4Capella
 # - Python4Capella:                             Python Scripting for Capella.
