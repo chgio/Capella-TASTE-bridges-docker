@@ -51,9 +51,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Docker Environment Variables
-          path: /tmp/docker-env-vars.txt
+          path: /tmp
       - name: Unpack dependency versions
         run: |
+          tree tmp
           CAPELLA_VER_LONG=$(grep CAPELLA_VER_LONG /tmp/docker-env-vars.txt)
           CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
           echo "capella_ver=${CAPELLA_VER_SHORT}" >> ${GITHUB_ENV}
