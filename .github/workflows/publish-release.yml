@@ -74,8 +74,6 @@ jobs:
       # check out repository
       - name: Check out repository
         uses: checkout@v4
-        with:
-          sparse-checkout: .github
       # create release
       - name: Create release
         run: |
