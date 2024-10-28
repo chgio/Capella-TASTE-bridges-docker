@@ -32,6 +32,7 @@ jobs:
         run: |
           docker run \
             chgio/python4capella-docker:latest \
+            --name test_container \
             sample/scripts/Python4Capella-Scripts/List_logical_components_in_console.py \
             sample/models/In-Flight\ Entertainment\ System/In-Flight\ Entertainment\ System.aird \
             > /tmp/out.txt
@@ -50,3 +51,13 @@ jobs:
         with:
           name: Docker Cache
           path: /tmp/docker-cache
+      # extract and upload Docker image dependency versions for release job
+      - name: Extract dependency versions
+        if: ${{ github.ref_type == 'tag' }}
+        run: docker inspect --format '{{ join .Config.Env "\n" }}' test_container > /tmp/docker-env-vars.txt
+      - name: Upload dependency versions
+        if: ${{ github.ref_type == 'tag' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Docker Environment Variables
+          path: /tmp/docker-env-vars.txt

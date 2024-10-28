@@ -12,15 +12,15 @@ jobs:
     uses: ./.github/workflows/build-test.yml
 
   publish:
+    runs-on: ubuntu-latest
     # invoke build-test job
     needs: build-test
-    runs-on: ubuntu-latest
     steps:
       # extract version number
       - name: Extract version number
         run: |
           VERSION_NOV=${GITHUB_REF#refs/tags/v}
-          echo "version_nov=$VERSION_NOV" >> $GITHUB_ENV
+          echo "version_nov=${VERSION_NOV}" >> ${GITHUB_ENV}
       # authenticate
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -42,14 +42,36 @@ jobs:
           push: true
 
   release:
-    # invoke build-test job
-    needs: build-test
     runs-on: ubuntu-latest
+    # dockervoke build-test job
+    needs: build-test
     steps:
-      # create draft release
-      - name: Create release
-        uses: marvinpinto/action-automatic-releases@latest
+      # download and unpack Docker image dependency versions from build-test job
+      - name: Download dependency versions as artifact
+        uses: actions/download-artifact@v4
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: false
-          draft: true
+          name: Docker Environment Variables
+          path: /tmp/docker-env-vars.txt
+      - name: Unpack dependency versions
+        run: |
+          CAPELLA_VER_LONG=$(grep CAPELLA_VER_LONG /tmp/docker-env-vars.txt)
+          CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
+          echo "capella_ver=${CAPELLA_VER_SHORT}" >> ${GITHUB_ENV}
+          PY4J_VER_LONG=$(grep PY4J_VER_LONG /tmp/docker-env-vars.txt)
+          PY4J_VER_SHORT=${PY4J_VER_LONG%.[0-9]-[A-z]*}
+          echo "py4j_ver=${PY4J_VER_SHORT}" >> ${GITHUB_ENV}
+          EASE_VER_LONG=$(grep EASE_CORE_VER_LONG /tmp/docker-env-vars.txt)
+          EASE_VER_SHORT=${EASE_VER_LONG%.I[0-9]*}
+          echo "ease_ver=${EASE_VER_SHORT}" >> ${GITHUB_ENV}
+          PY4C_VER_LONG=$(grep PY4C_VER_LONG /tmp/docker-env-vars.txt)
+          PY4C_VER_SHORT=${PY4C_VER_LONG%.[0-9]*}
+          echo "py4c_ver=${PY4C_VER_SHORT}" >> ${GITHUB_ENV}
+          REQVP_VER_LONG=$(grep REQVP_VER_LONG /tmp/docker-env-vars.txt)
+          REQVP_VER_SHORT=${REQVP_VER_LONG%.[0-9]*}
+          echo "reqvp_ver=${REQVP_VER_SHORT}" >> ${GITHUB_ENV}
+      # create release
+      - name: Create release
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title ${{ github.ref_name }} \
+            --notes-file .github/RELEASE_TEMPLATE.md
