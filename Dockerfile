@@ -74,7 +74,7 @@ ENV REQVP_VER_SHORT=${REQVP_VER_LONG%.[0-9]*}
 ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_SHORT}/Requirements-updateSite-${REQVP_VER_LONG}.zip&r=1!
 RUN capella -nosplash \
     -application org.eclipse.equinox.p2.director \
-    -repository "jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_LONG%.[0-9]*}/Requirements-updateSite-${REQVP_VER_LONG}.zip!" -installIU \
+    -repository "jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_LONG%.[0-9]*}/Requirements-updateSite-${REQVP_VER_LONG}.zip&mirror_id=1!" -installIU \
     org.polarsys.capella.vp.requirements.feature.feature.group/${REQVP_VER_LONG}
 
 # Unpack sample scripts and model
