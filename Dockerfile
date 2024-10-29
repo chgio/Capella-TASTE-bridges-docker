@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/python3 /usr/local/bin/python
 
 # install capella
-ENV CAPELLA_VER_LONG=6.1.0.202303291413
+ENV CAPELLA_VER_LONG=7.0.0.202407091438
 ENV CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
 ENV CAPELLA_TAR=https://download.eclipse.org/capella/core/products/releases/${CAPELLA_VER_LONG%.[0-9]*}/capella-${CAPELLA_VER_LONG}-linux-gtk-x86_64.tar.gz
 RUN mkdir -p /opt/capella && \
@@ -76,7 +76,7 @@ RUN mkdir -p /tmp/python4capella && \
 
 # Install Requirements-VP
 # - CapellaRequirements Feature
-ENV REQVP_VER_LONG=0.13.1.202303011400
+ENV REQVP_VER_LONG=0.14.0.202407170938
 ENV REQVP_VER_SHORT=${REQVP_VER_LONG%.[0-9]*}
 ENV REQVP_REPOSITORY=jar:https://www.eclipse.org/downloads/download.php?file=/capella/addons/requirements/updates/releases/${REQVP_VER_SHORT}/Requirements-updateSite-${REQVP_VER_LONG}.zip&r=1!
 RUN capella -nosplash \
