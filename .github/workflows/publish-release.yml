@@ -63,14 +63,14 @@ jobs:
         run: |
           CAPELLA_VER_TEXT=$(grep CAPELLA_VER_LONG /tmp/docker-env-vars.txt)
           CAPELLA_VER_LONG=${CAPELLA_VER_TEXT#CAPELLA_VER_LONG=}
-          CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
+          CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%%-[0-9A-z]*}
           echo "capella_ver=${CAPELLA_VER_SHORT}" >> ${GITHUB_ENV}
           PY4J_VER_TEXT=$(grep PY4J_VER_LONG /tmp/docker-env-vars.txt)
           PY4J_VER_LONG=${PY4J_VER_TEXT#PY4J_VER_LONG=}
           PY4J_VER_SHORT=${PY4J_VER_LONG%.[0-9]-[A-z]*}
           echo "py4j_ver=${PY4J_VER_SHORT}" >> ${GITHUB_ENV}
           EASE_VER_TEXT=$(grep EASE_CORE_VER_LONG /tmp/docker-env-vars.txt)
-          EASE_VER_LONG=${EASE_VER_TEXT#EASE_VER_LONG=}
+          EASE_VER_LONG=${EASE_VER_TEXT#EASE_CORE_VER_LONG=}
           EASE_VER_SHORT=${EASE_VER_LONG%.I[0-9]*}
           echo "ease_ver=${EASE_VER_SHORT}" >> ${GITHUB_ENV}
           PY4C_VER_TEXT=$(grep PY4C_VER_LONG /tmp/docker-env-vars.txt)
@@ -101,8 +101,5 @@ jobs:
             ## Installation
 
             Get it from [DockerHub](https://hub.docker.com/r/chgio/python4capella-docker/tags):
-
-            ```bash
-            docker pull chgio/python4capella-docker:${{ env.version_nov }}
-            ```
+            `docker pull chgio/python4capella-docker:${{ env.version_nov }}`
             "
