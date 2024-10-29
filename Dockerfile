@@ -18,9 +18,9 @@ ENV CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
 ENV CAPELLA_TAR=https://download.eclipse.org/capella/core/products/releases/${CAPELLA_VER_LONG%.[0-9]*}/capella-${CAPELLA_VER_LONG}-linux-gtk-x86_64.tar.gz
 RUN mkdir -p /opt/capella && \
     cd /opt/capella && \
-    wget -nv -c "https://download.eclipse.org/capella/core/products/releases/5.0.0-R20201202-123401/capella-5.0.0.202012021234-linux-gtk-x86_64.zip" -O capella.zip && \
-    unzip capella.zip -d /opt/capella && \
-    rm capella.zip
+    wget -nv -c "https://download.eclipse.org/capella/core/products/releases/5.0.0-R20201202-123401/capella-5.0.0.202101071610-linux-gtk-x86_64.tar.gz" -O capella.tar.gz && \
+    tar -xzf capella.tar.gz && \
+    rm capella.tar.gz
 ENV PATH="/opt/capella/capella/:${PATH}"
 RUN mkdir -p /opt/capella/workspace
 
