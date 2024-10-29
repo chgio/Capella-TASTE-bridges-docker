@@ -63,7 +63,7 @@ jobs:
         run: |
           CAPELLA_VER_TEXT=$(grep CAPELLA_VER_LONG /tmp/docker-env-vars.txt)
           CAPELLA_VER_LONG=${CAPELLA_VER_TEXT#CAPELLA_VER_LONG=}
-          CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%%-[0-9A-z]*}
+          CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
           echo "capella_ver=${CAPELLA_VER_SHORT}" >> ${GITHUB_ENV}
           PY4J_VER_TEXT=$(grep PY4J_VER_LONG /tmp/docker-env-vars.txt)
           PY4J_VER_LONG=${PY4J_VER_TEXT#PY4J_VER_LONG=}
