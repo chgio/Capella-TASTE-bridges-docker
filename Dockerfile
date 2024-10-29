@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/python3 /usr/local/bin/python
 
 # install capella
-ENV CAPELLA_VER_LONG=6.0.0.202209090800
+ENV CAPELLA_VER_LONG=6.1.0.202303291413
 ENV CAPELLA_VER_SHORT=${CAPELLA_VER_LONG%.[0-9]*}
 ENV CAPELLA_TAR=https://download.eclipse.org/capella/core/products/releases/${CAPELLA_VER_LONG%.[0-9]*}/capella-${CAPELLA_VER_LONG}-linux-gtk-x86_64.tar.gz
 RUN mkdir -p /opt/capella && \
